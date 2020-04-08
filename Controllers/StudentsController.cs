@@ -45,8 +45,11 @@ namespace ContosoUniversity.Controllers
                            select s;
             if (!String.IsNullOrEmpty(searchString))
             {
-                students = students.Where(s => s.LastName.Contains(searchString)
-                                       || s.FirstMidName.Contains(searchString));
+                //students = students.Where(s => s.LastName.Contains(searchString)
+                //                       || s.FirstMidName.Contains(searchString));
+                var sql = "SELECT * FROM Students WHERE LastName ='" + searchString + "' OR FirstMidName ='" + searchString + "'";
+                students = students.FromSql(sql);
+
             }
             switch (sortOrder)
             {
